@@ -1,4 +1,4 @@
-package project05SocialMedia;
+package prj5;
 
 import student.TestCase;
 

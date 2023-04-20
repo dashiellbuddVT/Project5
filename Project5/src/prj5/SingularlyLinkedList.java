@@ -1,4 +1,4 @@
-package project05SocialMedia;
+package prj5;
 
 import java.util.NoSuchElementException;
 
@@ -163,7 +163,7 @@ public class SingularlyLinkedList<T> implements LList<T> {
             throw new IndexOutOfBoundsException();
         }
         else {
-            int index = lastIndexOf(thing);
+            int index = getLastIndexOf(thing);
             remove(index + 1);
         }
     }
