@@ -13,6 +13,7 @@ public class Month
     private int followers;
     private int comments;
     private int views;
+    private String channelName;
     public static final String[] MONTHS = {"January", "February", 
         "March", "April", "May", "June", "July", "August", 
         "September", "October", "November", "December"};
@@ -44,6 +45,24 @@ public class Month
     public int getMonth()
     {
         return month;
+    }
+    
+    /**
+     * sets a new channel name
+     * @param n the new channel name
+     */
+    public void setChannelName(String n)
+    {
+        channelName = n;
+    }
+    
+    /**
+     * 
+     * @return the name of the associated channel
+     */
+    public String getChannelName()
+    {
+        return channelName;
     }
     
     /**
@@ -97,7 +116,7 @@ public class Month
      */
     public double getTradRate()
     {
-        return (((comments + likes) / followers) * 100);
+        return (((double)(comments + likes) / (double)followers) * 100.0);
     }
     
     /**
@@ -106,7 +125,7 @@ public class Month
      */
     public double getReachRate()
     {
-        return (((comments + likes) / views) * 100);
+        return (((double)(comments + likes) / (double)views) * 100.0);
     }
     
     /**

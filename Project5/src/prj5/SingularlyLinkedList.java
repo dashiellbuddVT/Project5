@@ -1,5 +1,7 @@
 package prj5;
 
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
@@ -10,7 +12,7 @@ import java.util.NoSuchElementException;
  * @version 19 April 2023
  *
  */
-public class SingularlyLinkedList<T> implements LList<T> {
+public class SingularlyLinkedList<T> implements LList<T> , Iterable<T>{
 
     /**
      * This is the node class
@@ -125,9 +127,8 @@ public class SingularlyLinkedList<T> implements LList<T> {
             head = newNext;
         }
         else {
-            Node<T> prev = getNodeAt(index);
-            Node<T> newNext = new Node<T>(thing);
-            newNext.setNext(prev);
+            Node<T> prev = getNodeAt(index-1);
+            Node<T> newNext = new Node<T>(thing,prev.next());
             prev.setNext(newNext);
         }
         size++;
@@ -216,7 +217,49 @@ public class SingularlyLinkedList<T> implements LList<T> {
             throw new NoSuchElementException(); // Item not found
         }
     }
+    
+    public void sort(Comparator<Month> comparator, int i)
+    {
+        if(size > 1)
+        {
+            Node<T> unsortedPart = head.next(); 
+            Node<T> sortedPart = head;
+            sortedPart.setNext(null);
+            
+            while(unsortedPart != null)
+            {
+                Node<Account> nodeToInsert = (Node<Account>) unsortedPart;
+                unsortedPart = unsortedPart.next();
+                insertInOrder(nodeToInsert,comparator, i);
+            }
+        }
+    }
 
+    
+    private void insertInOrder(Node<Account> a, Comparator<Month> comp, int i)
+    {
+        Account account = a.getData();
+        @SuppressWarnings("unchecked")
+        Node<Account> curr = (Node<Account>) head;
+        Node<Account> prev = null;
+        
+        while(curr != null && comp.compare( account.getMonth(i),curr.getData().getMonth(0))> 0) 
+        {
+            prev = curr;
+            curr = curr.next();
+        }
+        
+        if(prev != null)
+        {
+            prev.setNext(a);
+            a.setNext(curr);
+        }
+        else
+        {
+            a.setNext((Node<Account>) head);
+            head = (Node<T>) a;
+        }
+    }
 
     /**
      * returns the linked list as a string
@@ -238,4 +281,103 @@ public class SingularlyLinkedList<T> implements LList<T> {
         }
         return returner.substring(0, returner.length() - 2) + "]";
     }
+    
+    /**
+     * Iterator method creates Iterator object
+     *
+     * @return new Iterator object
+     */
+     public Iterator<T> iterator()
+     {
+         return new LListIterator<T>();
+     }
+     
+     private class LListIterator<A> implements Iterator<T>
+     {
+         private Node<T> prev;
+         private Node<T> curr;
+         private Node<T> next;
+         private boolean newCurr;
+
+         /**
+         * Creates a new DLListIterator
+         */
+         public LListIterator()
+         {
+             prev = null;
+             curr = null;
+             next = head;
+             newCurr = false;
+         }
+
+         /**
+         * Checks if there are more elements in the list
+         *
+         * @return true if there are more elements in the list
+         */
+         @Override
+         public boolean hasNext()
+         {
+             return (next != null);
+         }
+
+         /**
+         * Gets the next value in the list
+         *
+         * @return the next value
+         * @throws NoSuchElementException
+         *             if there are no nodes left in the list
+         */
+         @Override
+         public T next()
+         {
+             prev = curr;
+             curr = next;
+             next = next.next();
+             if (curr == null)
+             {
+                 throw new NoSuchElementException("No nodes left in the list.");
+             }
+             newCurr = true;
+             return curr.getData();
+         }
+
+        /**
+         * Removes the last object returned with next() from the list
+         *
+         * @throws IllegalStateException
+         *             if next has not been called yet
+         *             and if the element has already been removed
+         */
+         @Override
+         public void remove()
+         {
+             if (next == head)
+             {
+                 throw new IllegalStateException(
+                      "Next has not been called yet.");
+             }
+             else if (!newCurr)
+             {
+                 throw new IllegalStateException(
+                      "The Element has already been removed.");
+             }
+             else if (curr == head) {
+                 head = next;
+                 curr = null;
+             } else {
+                 prev.setNext(curr.next());
+                 curr = prev;
+                  //this code that updates prev is not necessary
+                  //because next() must be called before another remove()
+                  //and that will update prev, saving this O(n) operation
+                  //prev = firstNode;
+                  //while ((prev != null) && (prev.getNext() != curr)){
+                  //    prev = prev.getNext();
+                  //}
+             }
+             size--;
+             newCurr = false;
+         }
+     }
 }

@@ -2,6 +2,7 @@ package prj5;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.ParseException;
 import java.util.Scanner;
 import student.testingsupport.annotations.Hint;
 
@@ -36,11 +37,12 @@ public class Input2022FReferenceTest extends student.TestCase {
      * Test the program with randomly generated data that have NA fields.
      * Gathers the output from StdOut and compares it to
      * the expect output (stored in InfluencerOutput_2)
+     * @throws ParseException 
      *
      */
     @Hint("The main method is not working properly with input file - "
         + "SampleInput1_2022.csv")
-    public void testMain01() throws java.io.IOException {
+    public void testMain01() throws java.io.IOException, ParseException {
 
         Input.main(new String[] { "SampleInput1_2022.csv" });
 
@@ -71,11 +73,12 @@ public class Input2022FReferenceTest extends student.TestCase {
      * Test the program with randomly generated data that have NA fields.
      * Gathers the output from StdOut and compares it to
      * the expect output (stored in InfluencerOutput_2)
+     * @throws ParseException 
      *
      */
     @Hint("The main method is not working properly with input file - "
         + "SampleInput2_2022.csv")
-    public void testMain02() throws java.io.IOException {
+    public void testMain02() throws java.io.IOException, ParseException {
 
         Input.main(new String[] { "SampleInput2_2022.csv" });
 
@@ -107,11 +110,12 @@ public class Input2022FReferenceTest extends student.TestCase {
      * Gathers the output from StdOut and compares it to
      * the expect output (stored in InfluencerOutput_2).
      * Same as earlier test except with more detailed feedback.
+     * @throws ParseException 
      *
      */
     @Hint("The main method is not working properly with input file - "
         + "SampleInput2_2022.csv")
-    public void testMain03() throws java.io.IOException {
+    public void testMain03() throws java.io.IOException, ParseException {
 
         Input.main(new String[] { "SampleInput2_2022.csv" });
 
