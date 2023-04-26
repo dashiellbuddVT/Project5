@@ -21,7 +21,7 @@ public class SingularlyLinkedList<T> implements LList<T> , Iterable<T>{
      * @author George Liu (GeorgeLiu)
      * @version 19 April 2023
      */
-    public static class Node<T> {
+    private static class Node<T> {
         private T data;
         private Node<T> next;
 
@@ -236,6 +236,7 @@ public class SingularlyLinkedList<T> implements LList<T> , Iterable<T>{
     }
 
     
+    @SuppressWarnings("unchecked")
     private void insertInOrder(Node<Account> a, Comparator<Month> comp, int i)
     {
         Account account = a.getData();
