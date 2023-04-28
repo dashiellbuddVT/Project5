@@ -1,5 +1,7 @@
 package prj5;
 
+import java.util.Comparator;
+
 /**
  * Month class
  * 
@@ -148,7 +150,69 @@ public class Month {
     public double getReachRate() {
         return (((double)(comments + likes) / (double)views) * 100.0);
     }
-
+    
+    
+//    public static Comparator<Month> tradCompare()
+//    {
+//        return new Comparator<Month>()
+//        {
+//            /**
+//             * 
+//             */
+//            @Override
+//            public int compare(Month thisObj, Month oth)
+//            {
+//                if (thisObj.getTradRate() == oth.getTradRate())
+//                {
+//                    return thisObj.getChannelName()
+//                        .compareTo(oth.getChannelName());
+//                }
+//                double doubleTrad = (oth.getTradRate() 
+//                    - thisObj.getTradRate()) * 10;
+//                return (int)doubleTrad;
+//            }
+//        };
+//    }
+//    
+//    public static Comparator<Month> reachCompare()
+//    {
+//        return new Comparator<Month>()
+//        {
+//            /**
+//             * 
+//             */
+//            @Override
+//            public int compare(Month thisObj, Month oth)
+//            {
+//                if (thisObj.getReachRate() == oth.getReachRate())
+//                {
+//                    return thisObj.getChannelName()
+//                        .compareTo(oth.getChannelName());
+//                }
+//                double doubleReach = (oth.getReachRate() 
+//                    - thisObj.getReachRate()) * 10;
+//                return (int)doubleReach;
+//            }
+//        };
+//    }
+//    
+//    public static Comparator<Month> nameCompare()
+//    {
+//        return new Comparator<Month>()
+//        {
+//            /**
+//             * 
+//             */
+//            @Override
+//            public int compare(Month thisObj, Month oth)
+//            {
+//                return thisObj.getChannelName()
+//                    .compareTo(oth.getChannelName());
+//            }
+//        };
+//    }
+    
+    
 
     /**
      * Method to get the string form of the month
@@ -196,5 +260,6 @@ public class Month {
             .getFollowers() == followers && temp.getLikes() == likes && temp
                 .getMonth() == month && temp.getPosts() == posts;
     }
+    
 
 }

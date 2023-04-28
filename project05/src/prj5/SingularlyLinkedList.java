@@ -287,6 +287,33 @@ public class SingularlyLinkedList<T> implements LList<T>, Iterable<T> {
     }
     
     /**
+     * 
+     * @param <T>
+     * @param list
+     * @param comp
+     */
+    public static <T> void sort(
+        SingularlyLinkedList<T> list,
+        Comparator<? super T> comp) {
+
+        Iterator<T> iter = list.iterator();
+        SingularlyLinkedList<T> sortedList = new SingularlyLinkedList<T>();
+        while (iter.hasNext()) {
+            T curElement = iter.next();
+            int index = 0;
+
+            while (index < sortedList.size && comp.compare(curElement,
+                sortedList.get(index)) >= 0) {
+
+                index++;
+            }
+
+            sortedList.add(index, curElement);
+        }
+        list.head = sortedList.head;
+    }
+    
+    /**
      * Sorter class, insertion sort, made specially just for judging months
      * 
      * @param judgement

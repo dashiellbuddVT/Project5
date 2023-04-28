@@ -8,11 +8,18 @@ import java.util.Comparator;
  * @author Group
  * @version 4/21/2023
  */
-public class CompareReach implements Comparator<Month> {
+public class CompareReach implements Comparator<Account> 
+{
+    private int month;
+    
+    public CompareReach(int u)
+    {
+        month = u;
+    }
 
-    @Override
-    public int compare(Month o1, Month o2) {
-        return (int)(o2.getReachRate() - o1.getReachRate());
+    public int compare(Account o1, Account o2) {
+        return (int)(o2.getMonth(month).getReachRate() 
+            - o1.getMonth(month).getReachRate());
     }
 
 }

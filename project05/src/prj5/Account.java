@@ -1,5 +1,7 @@
 package prj5;
 
+import java.util.Comparator;
+
 /**
  * This class handles the account data format
  * 
@@ -43,6 +45,15 @@ public class Account {
      */
     public Month getMonth(int index) {
         return monthData[index];
+    }
+    
+    /**
+     * Method to get monthData array
+     * @return the month data array
+     */
+    public Month[] getMonths()
+    {
+        return monthData;
     }
 
 
@@ -95,7 +106,7 @@ public class Account {
 
 
     /**
-     * Sets the data of the quarter, 13,14,15,16 q1,q2,q3,q4 corrispondingly
+     * Sets the data of the quarter, 13,14,15,16 q1,q2,q3,q4 correspondingly
      * 
      * @param quarter
      *            Reference
@@ -128,6 +139,93 @@ public class Account {
         m.setChannelName(name);
         monthData[quarter + 13] = m;
     }
+    
+
+    /**
+     * Method to return a new comparator for traditional rate
+     * @return a comparator for accounts based on traditional rate
+     */
+    public static Comparator<Account> tradCompare()
+    {
+        return new Comparator<Account>()
+        {
+            /**
+             * 
+             */
+            public int compare(Account thisObj, Account oth, int u)
+            {
+                if (thisObj.getMonth(u).getTradRate() 
+                    == oth.getMonth(u).getTradRate())
+                {
+                    return thisObj.getMonth(u).getChannelName()
+                        .compareTo(oth.getMonth(u).getChannelName());
+                }
+                double doubleTrad = (oth.getMonth(u).getTradRate() 
+                    - thisObj.getMonth(u).getTradRate()) * 10;
+                return (int)doubleTrad;
+            }
+
+            @Override
+            public int compare(Account o1, Account o2) 
+            {
+                return 0;
+            }
+        };
+    }
+    
+    /**
+     * Method to return a new comparator for reach rate
+     * @return a comparator for accounts based on reach rate
+     */
+    public static Comparator<Account> reachCompare()
+    {
+        return new Comparator<Account>()
+        {
+            /**
+             * 
+             */
+            public int compare(Account thisObj, Account oth, int u)
+            {
+                if (thisObj.getMonth(u).getReachRate() 
+                    == oth.getMonth(u).getReachRate())
+                {
+                    return thisObj.getName()
+                        .compareTo(oth.getName());
+                }
+                double doubleReach = (oth.getMonth(u).getReachRate() 
+                    - thisObj.getMonth(u).getReachRate()) * 10;
+                return (int)doubleReach;
+            }
+
+            @Override
+            public int compare(Account o1, Account o2) 
+            {
+                return 0;
+            }
+        };
+    }
+    
+    /**
+     * Method to return a new comparator for name
+     * @return a comparator for accounts based on name
+     */
+    public static Comparator<Account> nameCompare()
+    {
+        return new Comparator<Account>()
+        {
+            /**
+             * 
+             */
+            @Override
+            public int compare(Account thisObj, Account oth)
+            {
+                return thisObj.getName().toLowerCase()
+                    .compareTo(oth.getName().toLowerCase());
+            }
+        };
+    }
+    
+    
 
 
     /**

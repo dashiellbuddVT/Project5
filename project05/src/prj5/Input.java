@@ -16,12 +16,21 @@ public class Input {
     public static void main(String[] args)
         throws FileNotFoundException,
         java.io.IOException {
+        Reader red;
         if (args.length == 1) {
-            Reader red = new Reader(args[0]);
+            red = new Reader(args[0]);
         }
         else {
-            Reader red = new Reader("SampleInput1_2022.csv");
+            red = new Reader("SampleInput1_2022.csv");
         }
+        
+        SingularlyLinkedList<Account> accounts = red.getAccounts();
+        new Display(new Controller(accounts));
+        for (Account account : accounts)
+        {
+            System.out.println(account.toString());
+        }
+        
     }
 
 }

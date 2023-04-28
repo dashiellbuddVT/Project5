@@ -8,9 +8,10 @@ import java.util.Comparator;
  * @author Group
  * @version 4/21/2023
  */
-public class CompareName implements Comparator<Month> {
+public class CompareName implements Comparator<Account> 
+{
     
-    public int compare(Month o1, Month o2) {
-        return o1.getChannelName().compareTo(o2.getChannelName());
+    public int compare(Account o1, Account o2) {
+        return o1.getName().compareTo(o2.getName());
     }
 }

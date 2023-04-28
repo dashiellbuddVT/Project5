@@ -6,18 +6,36 @@ import java.util.Scanner;
 
 import list.AList;
 
+/**
+ * Class to read files
+ * @author group
+ * @version 2023/04/26
+ */
 public class Reader {
 
     private SingularlyLinkedList<Account> accountList;
 
+    /**
+     * Constructor
+     * @param fileName is the name of the file
+     * @throws FileNotFoundException
+     * @throws java.io.IOException
+     */
     public Reader(String fileName)
         throws FileNotFoundException,
         java.io.IOException {
         accountList = readFile(fileName);
-        displayAccounts(accountList);
+        //displayAccounts(accountList);
     }
 
 
+    /**
+     * Method to read a file and get data from it
+     * @param fileName is the name of the file
+     * @return a list of accounts from the file
+     * @throws FileNotFoundException
+     * @throws java.io.IOException
+     */
     public SingularlyLinkedList<Account> readFile(String fileName)
         throws FileNotFoundException,
         java.io.IOException {
@@ -26,9 +44,9 @@ public class Reader {
 
         File f = new File(fileName);
         Scanner file = new Scanner(f);
-        file.nextLine();
+        String thisLine = file.nextLine();
         while (file.hasNextLine()) {
-            String thisLine = file.nextLine();
+            thisLine = file.nextLine();
             Scanner line = new Scanner(thisLine).useDelimiter(",");
 
             AList<String> tokens = new AList<String>();
@@ -82,8 +100,21 @@ public class Reader {
         file.close();
         return accountList;
     }
+    
+    /**
+     * Method to get the list of accounts
+     * @return the account list
+     */
+    public SingularlyLinkedList<Account> getAccounts()
+    {
+        return accountList;
+    }
 
 
+    /**
+     * Method to display the account list
+     * @param accountList is a list of the accounts being displayed
+     */
     public void displayAccounts(SingularlyLinkedList<Account> accountList) {
 
         DecimalFormat df = new DecimalFormat("#.#");
@@ -96,8 +127,8 @@ public class Reader {
             System.out.println(df.format(a.getMonth(13).getTradRate()));
             System.out.println("==========");
         }
-        CompareReach comp2 = new CompareReach();
-        accountList.sort(comp2,13);
+        CompareReach comp2 = new CompareReach(13);
+        accountList.sort(comp2);
         System.out.println("**********");
         System.out.println("**********");
         for (Account a : accountList) {

@@ -8,11 +8,20 @@ import java.util.Comparator;
  * @author Group
  * @version 4/21/2023
  */
-public class CompareTraditional implements Comparator<Month> {
+public class CompareTraditional implements Comparator<Account> 
+{
+    private int month;
+    
+    public CompareTraditional(int u)
+    {
+        month = u;
+    }
 
-    @Override
-    public int compare(Month o1, Month o2) {
-        return (int)(o1.getTradRate() - o2.getTradRate());
+
+    public int compare(Account o1, Account o2) 
+    {
+        return (int)(o2.getMonth(month).getTradRate() 
+            - o1.getMonth(month).getTradRate());
     }
 
 }
